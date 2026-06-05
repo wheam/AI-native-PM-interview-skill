@@ -30,8 +30,24 @@ ai-pm-interview-skill/
   - AI-native 产品：Cursor、Manus、Mistral、Perplexity、Cohere、Scale、Character.AI、Hugging Face、Replit、xAI
 - [x] 业内大神方法论（Lenny/Mike Krieger/Shreyas Doshi/a16z/Claire Vo/Aakash 等 9 位）
 - [x] 真实面试题与流程（英文 4 家 + 中文 8 家 + 设计师/工程师反哺）
-- [ ] 汇总分析共性考点与能力模型
-- [ ] 提炼成 `ai-pm-interview` skill
+- [x] 汇总分析共性考点与能力模型 → `skill/references/ai-native-pm-competency-model.md`
+- [x] 提炼成 `ai-pm-interview` skill → `skill/SKILL.md`
 
-## 素材已非常充分，待提炼
-下一步：把所有素材综合成「AI Native PM 能力模型 + 面试备考指南」，再提炼成 skill。等所有者确认后推进。
+## ✅ Skill 已完成
+
+`skill/` 目录即可安装的 Hermes skill，提供 4 大能力：
+1. **能力模型 & 备考指南输出** — AI native PM 六大能力 + 各公司侧重 + 大神框架
+2. **知识点测试** — 学完某领域（如模型评估）后出题自测 + 点评 + 学习建议
+3. **简历筛选** — 给简历（PDF/MD），分析是否通过 + 评分 + 改进建议
+4. **模拟面试** — 基于简历设计 ≤10 题逐题面试，给通过判定 + 打分（2.5/3/3+/3.5/4.0）
+
+```
+skill/
+├── SKILL.md                                    # 主文件，4 大能力工作流
+└── references/
+    ├── ai-native-pm-competency-model.md        # 六大能力模型 + 各公司侧重 + 大神框架
+    ├── interview-prep-guide.md                 # 面试流程 + 六板块高频真题 + 经验教训
+    └── scoring-rubric.md                       # 5 档打分 + 六能力评分细则
+```
+
+**安装**：把 `skill/` 内容放到 Hermes skills 目录（如 `~/.hermes/skills/career/ai-pm-interview/`）。
