@@ -27,7 +27,8 @@ metadata:
 
 - `references/ai-native-pm-competency-model.md` — 六大能力模型 + 各公司侧重 + 大神框架 + 自检清单
 - `references/interview-prep-guide.md` — 面试流程 + 六板块高频真题 + 各公司提示 + 经验教训
-- `references/scoring-rubric.md` — 5 档打分（2.5/3/3+/3.5/4.0）+ 六能力评分细则 + 通过线
+- `references/scoring-rubric.md` — 6 档打分（2.0/2.5/3/3+/3.5/4.0）+ 六能力评分细则 + 通过线
+- `references/calibration-anchor-3.0.md` — 3.0 校准样本：真实答卷长什么样 + 单项从严平移示范（打分前对照用）
 
 > 注：本 skill 随附完整研究素材（19 家公司 JD、面试真题、大神方法论）在项目 repo 的 `research/` 下，需要溯源或深挖时可查阅。
 

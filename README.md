@@ -39,7 +39,7 @@ ai-pm-interview-skill/
 1. **能力模型 & 备考指南输出** — AI native PM 六大能力 + 各公司侧重 + 大神框架
 2. **知识点测试** — 学完某领域（如模型评估）后出题自测 + 点评 + 学习建议
 3. **简历筛选** — 给简历（PDF/MD），分析是否通过 + 评分 + 改进建议
-4. **模拟面试** — 基于简历设计 ≤10 题逐题面试，给通过判定 + 打分（2.5/3/3+/3.5/4.0）
+4. **模拟面试** — 基于简历设计 ≤10 题逐题面试，给通过判定 + 打分（2.0/2.5/3/3+/3.5/4.0）
 
 ```
 skill/
@@ -47,7 +47,7 @@ skill/
 └── references/
     ├── ai-native-pm-competency-model.md        # 六大能力模型 + 各公司侧重 + 大神框架
     ├── interview-prep-guide.md                 # 面试流程 + 六板块高频真题 + 经验教训
-    └── scoring-rubric.md                       # 5 档打分 + 六能力评分细则
+    └── scoring-rubric.md                       # 6 档打分 + 六能力评分细则
 ```
 
 **安装**：把 `skill/` 内容放到 Hermes skills 目录（如 `~/.hermes/skills/career/ai-pm-interview/`）。
