@@ -27,9 +27,12 @@ ai-pm-interview-skill/
 ## 进度
 
 - [x] 项目初始化 + 字节面经存档
-- [ ] 抓取各公司招 PM/Product Builder 的 JD
+- [x] 抓取各公司招 PM/Product Builder 的 JD（11 家全部完成，共 ~50 个岗位）
+  - 美国前沿：Anthropic(7)、OpenAI(3)、Google DeepMind(4)、Meta(4)
+  - 中国大模型：字节 Seed/豆包(5)、DeepSeek(3)、MiniMax(5)、智谱(6)、Kimi(4)
+  - AI-native 产品公司：Cursor(7)、Manus(5)
 - [ ] 汇总分析共性考点与能力模型
 - [ ] 提炼成 `ai-pm-interview` skill
 
-## 信息够了再推进
-素材搜集阶段。攒够各家 JD + 面经后，再动手写 skill。
+## 素材就绪，待推进
+JD 已搜集充分。下一步：汇总各家共性的 AI-native PM 能力模型，结合字节面经的考法，提炼成 skill。等所有者确认后推进。
