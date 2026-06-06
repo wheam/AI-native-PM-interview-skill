@@ -1,8 +1,9 @@
 ---
 captured: 2026-06-05
+updated: 2026-06-06
 topic: AI 产品经理能力模型 / 方法论 —— 业内大神核心观点
-sources: 9
-researcher: subagent (Sonnet 4.6)
+sources: 15
+researcher: subagent (Sonnet 4.6 + Opus 4.8 第二批)
 ---
 
 # AI 产品经理能力模型/方法论：业内大神核心观点汇编
@@ -124,6 +125,44 @@ researcher: subagent (Sonnet 4.6)
 
 ---
 
+# 补充（2026-06 第二批：Eval 硬核 how-to + AI PM 分型 + Context Engineering）
+
+## 10. Hamel Husain + Shreya Shankar — Error Analysis + Three Gulfs
+> 独立 AI/eval 咨询 + UC Berkeley｜https://hamel.dev/blog/posts/evals-faq/ ｜课程 https://maven.com/parlance-labs/evals
+
+eval 不是先搭指标看板，而是从 **error analysis** 起步：读 100+ 真实 trace、手写标注、聚类成 failure taxonomy、计数，**只为 top 失败模式写 eval**。
+- **Three Gulfs**：Comprehension（看不懂数据）/ Specification（prompt 没说清）/ Generalization（泛化不了）——把失败归到对的 gulf 而非盲目换模型。
+- **binary pass/fail > Likert**：Likert 易被啰嗦话术 game。
+> 面试金句探针："你怎么决定要写哪些 eval？" 真 PM 答 error analysis，假的答"测准确率"。
+
+## 11. Eugene Yan — faithfulness = groundedness（原子化拆 claim）
+> Amazon 资深应用科学家｜https://eugeneyan.com/writing/qa-evals/
+
+量化幻觉：把答案拆成原子 claim，逐条对源验证（NLI：source=前提、answer=假设，矛盾=不忠实）。**区分 faithfulness（有依据）vs correctness（对）**——多数人混为一谈。
+
+## 12. Chip Huyen — 《AI Engineering》(2025) judge 偏差目录
+> 前 Stanford 讲师 / NVIDIA｜https://github.com/chiphuyen/aie-book
+
+3 步 eval pipeline（评每个组件 → 写 eval guideline → 定方法+数据）；**LLM-as-judge 三坑**：position bias / verbosity bias / self-preference bias。
+
+## 13. Aman Khan — "Evals are the new PRD"（对 PM 最对症）
+> Head of Product @ Arize｜Lenny https://www.lennysnewsletter.com/p/building-eval-systems-that-improve ｜DeepLearning.AI "Evaluating AI Agents"
+
+PM 把"什么叫好"(简洁/友好/准确)编码成可测 eval；**agent 要评 trajectory**（路由决策、工具调用、收敛步数 convergence score），而非只看最终输出。
+
+## 14. Marily Nika — 《The AI Product Playbook》三种 AI PM 分型
+> Google AI PM / Stanford 讲师｜https://www.oreilly.com/library/view/the-ai-product/9781394335657/
+
+**AI Experiences PM**（做 AI 功能）/ **AI Builder PM**（做模型/基建）/ **AI-Enhanced PM**（用 AI 提效）。用途：面试前先判断候选人到底是哪种，专治"自称 Builder 实际只做 AI-Enhanced"。
+> 另：**Reforge BUILD 框架**——Base(LLM)→learning(RLHF)→Lead(agents)→Delegate(multi-agent)，考是否懂 RLHF 与多 agent 委派。
+
+## 15. Miqdad Jaffer — Context Pyramid（context engineering 给 PM）
+> OpenAI PM｜https://karozieminski.substack.com/p/context-engineering-product-builders-guide-2026
+
+agent context 四层：**Identity**（system prompt，几乎不变）/ **Knowledge**（RAG，偶尔）/ **State**（会话，每轮）/ **Task**（目标+成功标准，每任务）。最佳诊断探针："agent 跑偏怎么定位？"——症状映射到层（重复=State / 忽略事实=Knowledge / 人设崩=Identity / 跑题=Task），而非"再调调 prompt"。
+
+---
+
 ## 📊 各大神核心框架汇总
 
 | 作者 | 核心框架 | 最重要的 AI PM 能力 |
@@ -137,3 +176,9 @@ researcher: subagent (Sonnet 4.6)
 | Aakash Gupta | 传统 vs AI PM 对比 | ML 直觉+数据飞轮+伦理 |
 | Kenny（中文） | Model-Product-Market Fit | 全链路判断；警惕路径依赖 |
 | Fiona Fung | AI-native 工程组织重构 | 聚焦比工具更重要 |
+| Hamel Husain + Shreya Shankar | Error Analysis + Three Gulfs | eval 从读 trace 找 failure mode 起步；binary>Likert |
+| Eugene Yan | faithfulness=groundedness | 原子化拆 claim；区分有依据 vs 对 |
+| Chip Huyen | judge 偏差目录 | LLM-judge：position/verbosity/self-preference |
+| Aman Khan | Evals are the new PRD | agent 评 trajectory 非只看终态 |
+| Marily Nika | 三种 AI PM 分型 + Reforge BUILD | 先分型候选人；懂 RLHF/多 agent |
+| Miqdad Jaffer | Context Pyramid | Identity/Knowledge/State/Task 按症状定位 |

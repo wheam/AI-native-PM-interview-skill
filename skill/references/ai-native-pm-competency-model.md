@@ -23,7 +23,8 @@ Mike Krieger（Anthropic CPO）："瓶颈已从工程（写代码）转移到决
 - 理解局限：幻觉（类型 + 产品层面缓解）、复读、中间遗忘、概率性不确定
 - 区分 Prompt vs RAG vs Fine-tuning 的适用场景与决策树
 - 懂 Agent 机制：Agent Loop、Tool Use、Planning、Memory、MCP、Multi-Agent
-- **判断信号**：能否在不写代码的前提下，与研究员/工程师就模型能力做有深度的对话
+- **Context Engineering（折叠在本能力下的 agent 时代新肌肉）**：理解 Miqdad Jaffer（OpenAI PM）的 **Context Pyramid 四层**——Identity（system prompt，几乎不变）/ Knowledge（RAG，偶尔变）/ State（会话，每轮变）/ Task（目标+成功标准，每任务变）。能把 agent 跑偏的症状映射到对应层去定位，而不是无脑"再调调 prompt"。
+- **判断信号**：能否在不写代码的前提下，与研究员/工程师就模型能力做有深度的对话；**最佳探针**——"agent 行为跑偏你怎么定位？"强答案是症状→层级映射（重复=State 污染 / 忽略已知事实=Knowledge 检索失败 / 人设崩=Identity / 跑题=Task 没说清），弱答案是"我再调调 prompt"。
 
 > JD 证据：几乎所有公司都要求。Anthropic"technical fluency"、字节"模型能力边界感知"、DeepSeek"理解 LLM 及 Agent 机制（KV Cache/Agent Loop/MCP）"、Meta"理解模型边界设合理预期"。
 
@@ -35,7 +36,15 @@ Mike Krieger（Anthropic CPO）："瓶颈已从工程（写代码）转移到决
 - 把模糊的"智能/好"转化为清晰可辩护的指标
 - 评估结果反哺模型迭代方向
 
-> JD 证据：Anthropic Claude Code Model Perf PM"亲手构建过 agentic evals"、Cursor Agent Harness PM"定义质量指标驱动研发"、字节评测 PM、Kimi"Agent 模型评估 PM"、a16z"像访谈用户一样访谈模型，会写 evals"。
+**Eval 硬核 how-to（区分"知道要 eval"和"真的会做"——高判别力考点）**：
+- **从 error analysis 起步，不是从指标看板起步**（Hamel Husain + Shreya Shankar）：先读 100+ 真实 trace、手写标注、聚类成 failure taxonomy、计数，**只为 top 失败模式写 eval**。问"你怎么决定写哪些 eval？"——真 PM 答"先做 error analysis 找 failure mode"，假的答"测准确率/写测试用例"。
+- **Three Gulfs 定位失败**（Husain/Shankar）：Comprehension（看不懂数据）/ Specification（prompt 没说清）/ Generalization（泛化不了）。强候选人能把一个失败归到对的 gulf，而非盲目换模型。
+- **binary pass/fail > Likert 打分**：Likert 容易被啰嗦话术 game，二元判定更稳。
+- **faithfulness ≠ correctness**（Eugene Yan）：量化幻觉用**原子化拆 claim**、逐条对源验证（NLI：source=前提、answer=假设，矛盾=不忠实）。能区分"对但没依据" vs "有依据"的人很少。
+- **LLM-as-judge 三大坑**（Chip Huyen）：position bias / verbosity bias / self-preference bias；用 judge 必须先写 eval guideline。
+- **"Evals are the new PRD"**（Aman Khan，Arize 产品负责人）：PM 把"什么叫好"(简洁/友好/准确)编码成可测的 eval；**agent 要评 trajectory**（路由决策、工具调用、收敛步数）而非只看最终输出。
+
+> JD 证据：Anthropic Claude Code Model Perf PM"亲手构建过 agentic evals"、Cursor Agent Harness PM"定义质量指标驱动研发"、字节评测 PM、Kimi"Agent 模型评估 PM"、a16z"像访谈用户一样访谈模型，会写 evals"。OpenAI CPO Kevin Weil：**"写 eval 将成为 PM 的核心技能。"**
 
 ### 能力 3：产品判断力 / Product Sense
 **定义**：识别真实用户摩擦点、定义问题、在不确定中做有据可查的决策。Shreyas Doshi 称之为"唯一长期护城河"。
@@ -91,7 +100,9 @@ Mike Krieger（Anthropic CPO）："瓶颈已从工程（写代码）转移到决
 
 ---
 
-## 四、9 位大神框架速查（评判时引用）
+## 四、业内方法论速查（评判时引用）
+
+**A. 通用 AI PM 方法论**
 
 | 作者 | 框架 | 核心 |
 |------|------|------|
@@ -104,6 +115,18 @@ Mike Krieger（Anthropic CPO）："瓶颈已从工程（写代码）转移到决
 | Aakash Gupta | 传统 vs AI PM 对比 | ML 直觉（precision/recall 是产品决策）+ 数据飞轮 + 伦理 |
 | Kenny（中文） | Model-Product-Market Fit | 全链路判断；警惕路径依赖；0-1 要精细完美才成立=不成立 |
 | Fiona Fung (Anthropic Eng) | AI-native 组织重构 | 聚焦比工具更重要 |
+| Marily Nika (Google) | 三种 AI PM 分型 | AI Experiences（做 AI 功能）/ AI Builder（做模型/基建）/ AI-Enhanced（用 AI 提效）——**面试前先判断候选人到底是哪种**，专治"自称 Builder 实际只做 AI-Enhanced" |
+| Reforge | BUILD 框架 | Base(LLM)→learning(RLHF)→Lead(agents)→Delegate(multi-agent)：考是否懂 RLHF 与多 agent 委派，而非只会 prompting |
+
+**B. Eval / Agent 评测硬核（深挖能力2 用）**
+
+| 作者 | 框架 | 核心 |
+|------|------|------|
+| Hamel Husain + Shreya Shankar | Error Analysis + Three Gulfs | eval 从读 trace 标注找 failure mode 起步；失败归 Comprehension/Specification/Generalization 三 gulf；binary > Likert |
+| Eugene Yan | faithfulness=groundedness | 原子化拆 claim 逐条对源验证；区分"对但没依据" vs "有依据" |
+| Chip Huyen (《AI Engineering》2025) | judge 偏差目录 + 3 步 eval | LLM-judge 三坑：position/verbosity/self-preference；先写 eval guideline |
+| Aman Khan (Arize) | "Evals are the new PRD" | 把"什么叫好"编码成可测 eval；agent 评 trajectory（路由/工具/收敛步数）非只看终态 |
+| Miqdad Jaffer (OpenAI PM) | Context Pyramid | agent context 四层 Identity/Knowledge/State/Task；按症状定位到层（见能力1）|
 
 ---
 
@@ -112,6 +135,9 @@ Mike Krieger（Anthropic CPO）："瓶颈已从工程（写代码）转移到决
 - [ ] 我能讲清 LLM 的幻觉有哪几类，以及产品层面怎么缓解（不只是技术层面）
 - [ ] 我能说出某个场景该选 Prompt / RAG / Fine-tuning，并解释为什么
 - [ ] 我亲手为某个 AI 功能设计过评估方法（指标 + 测试集）
+- [ ] 我做 eval 是先读真实 trace 做 error analysis 找 failure mode，再针对性写 eval（不是上来就测准确率）
+- [ ] 我能区分 faithfulness（有依据）与 correctness（对），也能说出 LLM-as-judge 的几个偏差坑
+- [ ] agent 跑偏时，我能把症状定位到 Identity/Knowledge/State/Task 哪一层，而不是只会"再调调 prompt"
 - [ ] 我每天/每周高强度使用至少 2-3 个 AI 产品，且能说出它们的优劣差异
 - [ ] 我能用 AI 工具自己跑出一个产品原型/demo（不依赖工程师）
 - [ ] 我的项目经历里有量化结果（不是"提升了体验"而是"X 指标 +Y%"）
