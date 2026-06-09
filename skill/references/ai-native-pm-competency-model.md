@@ -23,6 +23,7 @@ Mike Krieger（Anthropic CPO）："瓶颈已从工程（写代码）转移到决
 - 理解局限：幻觉（类型 + 产品层面缓解）、复读、中间遗忘、概率性不确定
 - 区分 Prompt vs RAG vs Fine-tuning 的适用场景与决策树
 - 懂 Agent 机制：Agent Loop、Tool Use、Planning、Memory、MCP、Multi-Agent
+- **Agent 架构深度**：能讲清 agent vs workflow vs chatbot 的本质区别（自主决策 vs 固定编排 vs 对话）；理解 agent **harness**（模型外的编排脚手架，模型变强时应变薄）；懂 **computer-use / GUI agent** 的方案与核心难点（感知→规划→操作闭环；难在可靠性/不可逆操作/状态漂移）；能判断 agent 能力**部署云端 vs 本地**的权衡；会设计与迭代 **agent skill**（选场景/定优先级/衡量/迭代方向）
 - **Context Engineering（折叠在本能力下的 agent 时代新肌肉）**：理解 Miqdad Jaffer（OpenAI PM）的 **Context Pyramid 四层**——Identity（system prompt，几乎不变）/ Knowledge（RAG，偶尔变）/ State（会话，每轮变）/ Task（目标+成功标准，每任务变）。能把 agent 跑偏的症状映射到对应层去定位，而不是无脑"再调调 prompt"。
 - **判断信号**：能否在不写代码的前提下，与研究员/工程师就模型能力做有深度的对话；**最佳探针**——"agent 行为跑偏你怎么定位？"强答案是症状→层级映射（重复=State 污染 / 忽略已知事实=Knowledge 检索失败 / 人设崩=Identity / 跑题=Task 没说清），弱答案是"我再调调 prompt"。
 
